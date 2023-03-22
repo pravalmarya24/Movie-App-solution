@@ -1,0 +1,26 @@
+.trending-bg-container {
+  padding: 25px;
+}
+
+.slick-bg-container {
+  background-color: grey;
+  height: 120px;
+}
+
+.slick-container {
+  border-width: 1px;
+  border-style: solid;
+  height: 120px;
+}
+
+.trending-movie-img-container {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.trending-slider-img {
+  width: 100%;
+  border-radius: 10px;
+}
