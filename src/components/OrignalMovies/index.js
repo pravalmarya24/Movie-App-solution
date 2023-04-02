@@ -122,7 +122,7 @@ class OrignalsMovies extends Component {
       <button
         className="try-again-btn"
         type="button"
-        onClick={this.onRecallTrendingMovieApi}
+        onClick={this.onRecallOrignalsMoviesApi}
       >
         Try Again
       </button>
