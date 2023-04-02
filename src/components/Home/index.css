@@ -1,5 +1,65 @@
-.home-bg-container {
+.home-top-container {
+  min-height: 800px;
+}
+
+.home-bottom-bg-container {
   background-color: #181818;
-  background-size: cover;
-  height: 100vh;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 30px;
+  padding: 25px;
+}
+.trending-now-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  color: #ffffff;
+  padding-left: 23px;
+}
+
+.orignal-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  color: #ffffff;
+  padding-left: 23px;
+}
+
+.random-poster-container {
+  margin-left: 90px;
+  margin-top: 60px;
+}
+
+.title-heading {
+  font-family: 'Roboto';
+  font-size: 60px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.overview-heading {
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-weight: 400;
+  color: #ffffff;
+  height: 48px;
+  width: 443px;
+}
+
+.play-btn {
+  width: 85px;
+  height: 32px;
+  background-color: #ffffff;
+  border-width: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 500;
+  color: #171f46;
 }

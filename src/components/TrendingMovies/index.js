@@ -4,6 +4,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
 
 const settings = {
   dots: false,
@@ -36,14 +37,22 @@ const settings = {
   ],
 }
 
+const apiStatusObject = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  progress: 'PROGRESS',
+  failure: 'FAILURE',
+}
+
 class TrendingMovies extends Component {
-  state = {trendingMovieList: []}
+  state = {trendingMovieList: [], apiStatus: apiStatusObject.initial}
 
   componentDidMount = () => {
     this.getTrendingMovies()
   }
 
   getTrendingMovies = async () => {
+    this.setState({apiStatus: apiStatusObject.progress})
     const jwtToken = Cookies.get('jwt_token')
     const url = 'https://apis.ccbp.in/movies-app/trending-movies'
     const options = {
@@ -54,7 +63,6 @@ class TrendingMovies extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
     if (response.ok === true) {
       const TrendingMovieData = data.results.map(each => ({
         id: each.id,
@@ -63,16 +71,80 @@ class TrendingMovies extends Component {
         posterPath: each.poster_path,
         title: each.title,
       }))
-      console.log(TrendingMovieData)
-      this.setState({trendingMovieList: TrendingMovieData})
+      this.setState({
+        trendingMovieList: TrendingMovieData,
+        apiStatus: apiStatusObject.success,
+      })
+    } else {
+      this.setState({apiStatus: apiStatusObject.failure})
+    }
+  }
+
+  onRecallTrendingMovieApi = () => this.getTrendingMovies()
+
+  renderLoaderView = () => (
+    <div className="loader-container" testid="loader">
+      <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
+    </div>
+  )
+
+  renderSuccessView = () => {
+    const {trendingMovieList} = this.state
+    return (
+      <Slider {...settings} className="slider-container">
+        {trendingMovieList.map(each => {
+          const {backdropPath, id, title} = each
+          return (
+            <div className="logo-container" key={id}>
+              <img
+                src={backdropPath}
+                alt={title}
+                className="trending-movie-poster-logo"
+              />
+            </div>
+          )
+        })}
+      </Slider>
+    )
+  }
+
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        src="https://res.cloudinary.com/dl88cshny/image/upload/v1680421245/Icon_nkfkre.png"
+        alt="failure view"
+        className="failure-logo"
+      />
+      <p className="failure-message-para">
+        Something went wrong. Please try again
+      </p>
+      <button
+        className="try-again-btn"
+        type="button"
+        onClick={this.onRecallTrendingMovieApi}
+      >
+        Try Again
+      </button>
+    </div>
+  )
+
+  renderSlickViews = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusObject.success:
+        return this.renderSuccessView()
+      case apiStatusObject.progress:
+        return this.renderLoaderView()
+      case apiStatusObject.failure:
+        return this.renderFailureView()
+      default:
+        return null
     }
   }
 
   render() {
     return (
-      <div className="trending-bg-container">
-        <h1>trending Slicks</h1>
-      </div>
+      <div className="trending-bg-container">{this.renderSlickViews()}</div>
     )
   }
 }

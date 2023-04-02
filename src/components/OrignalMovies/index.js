@@ -1,10 +1,41 @@
 import {Component} from 'react'
 import './index.css'
-import Loader from 'react-loader-spinner'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Cookies from 'js-cookie'
-import Header from '../Header'
-import TrendingMovies from '../TrendingMovies'
-import OrignalsMovies from '../OrignalMovies'
+import Loader from 'react-loader-spinner'
+
+const settings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+}
 
 const apiStatusObject = {
   initial: 'INITIAL',
@@ -13,17 +44,14 @@ const apiStatusObject = {
   failure: 'FAILURE',
 }
 
-class Home extends Component {
-  state = {
-    randomMovieList: [],
-    apiStatus: apiStatusObject.initial,
-  }
+class OrignalsMovies extends Component {
+  state = {OrignalMovieList: [], apiStatus: apiStatusObject.initial}
 
   componentDidMount = () => {
-    this.getRandomBgPoster()
+    this.getOrignalsMovies()
   }
 
-  getRandomBgPoster = async () => {
+  getOrignalsMovies = async () => {
     this.setState({apiStatus: apiStatusObject.progress})
     const jwtToken = Cookies.get('jwt_token')
     const url = 'https://apis.ccbp.in/movies-app/originals'
@@ -35,8 +63,6 @@ class Home extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    const randomIndex = Math.ceil(Math.random() * 10)
-    console.log(randomIndex)
     if (response.ok === true) {
       const OrignalMovieData = data.results.map(each => ({
         id: each.id,
@@ -45,17 +71,17 @@ class Home extends Component {
         posterPath: each.poster_path,
         title: each.title,
       }))
-      console.log(OrignalMovieData)
+
       this.setState({
-        randomMovieList: OrignalMovieData[randomIndex],
+        OrignalMovieList: OrignalMovieData,
         apiStatus: apiStatusObject.success,
       })
     } else {
-      this.setState({
-        apiStatus: apiStatusObject.failure,
-      })
+      this.setState({apiStatus: apiStatusObject.failure})
     }
   }
+
+  onRecallOrignalsMoviesApi = () => this.getOrignalsMovies()
 
   renderLoaderView = () => (
     <div className="loader-container" testid="loader">
@@ -64,22 +90,24 @@ class Home extends Component {
   )
 
   renderSuccessView = () => {
-    const {randomMovieList} = this.state
-    //  this.setState({bgPoster: randomObject.posterPath})
-    console.log(randomMovieList)
-    const {title, overview} = randomMovieList
+    const {OrignalMovieList} = this.state
     return (
-      <div className="random-poster-container">
-        <h1 className="title-heading">{title}</h1>
-        <p className="overview-heading">{overview}</p>
-        <button className="play-btn" type="button">
-          Play
-        </button>
-      </div>
+      <Slider {...settings} className="slider-container">
+        {OrignalMovieList.map(each => {
+          const {backdropPath, id, title} = each
+          return (
+            <div className="logo-container" key={id}>
+              <img
+                src={backdropPath}
+                alt={title}
+                className="trending-movie-poster-logo"
+              />
+            </div>
+          )
+        })}
+      </Slider>
     )
   }
-
-  onRecallMovieApi = () => this.getRandomBgPoster()
 
   renderFailureView = () => (
     <div className="failure-view-container">
@@ -94,14 +122,14 @@ class Home extends Component {
       <button
         className="try-again-btn"
         type="button"
-        onClick={this.onRecallMovieApi}
+        onClick={this.onRecallTrendingMovieApi}
       >
         Try Again
       </button>
     </div>
   )
 
-  renderViews = () => {
+  renderSlickViews = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusObject.success:
@@ -116,30 +144,10 @@ class Home extends Component {
   }
 
   render() {
-    const {randomMovieList} = this.state
-    const {posterPath} = randomMovieList
     return (
-      <>
-        <div
-          className="home-top-container"
-          style={{
-            backgroundImage: `url(${posterPath})`,
-            backgroundSize: 'cover',
-            width: '100%',
-          }}
-        >
-          <Header />
-          {this.renderViews()}
-        </div>
-        <div className="home-bottom-bg-container">
-          <h1 className="trending-now-heading">Trending Now</h1>
-          <TrendingMovies />
-          <h1 className="orignal-heading">Orignals</h1>
-          <OrignalsMovies />
-        </div>
-      </>
+      <div className="trending-bg-container">{this.renderSlickViews()}</div>
     )
   }
 }
 
-export default Home
+export default OrignalsMovies

@@ -1,10 +1,6 @@
 import {Component} from 'react'
-import './index.css'
-import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
-import Header from '../Header'
-import TrendingMovies from '../TrendingMovies'
-import OrignalsMovies from '../OrignalMovies'
+import Loader from 'react-loader-spinner'
 
 const apiStatusObject = {
   initial: 'INITIAL',
@@ -13,11 +9,8 @@ const apiStatusObject = {
   failure: 'FAILURE',
 }
 
-class Home extends Component {
-  state = {
-    randomMovieList: [],
-    apiStatus: apiStatusObject.initial,
-  }
+class HomeRandomBgPoster extends Component {
+  state = {index: 0, randomMovieList: [], apiStatus: apiStatusObject.initial}
 
   componentDidMount = () => {
     this.getRandomBgPoster()
@@ -47,7 +40,8 @@ class Home extends Component {
       }))
       console.log(OrignalMovieData)
       this.setState({
-        randomMovieList: OrignalMovieData[randomIndex],
+        index: randomIndex,
+        randomMovieList: OrignalMovieData,
         apiStatus: apiStatusObject.success,
       })
     } else {
@@ -64,14 +58,14 @@ class Home extends Component {
   )
 
   renderSuccessView = () => {
-    const {randomMovieList} = this.state
-    //  this.setState({bgPoster: randomObject.posterPath})
-    console.log(randomMovieList)
-    const {title, overview} = randomMovieList
+    const {randomMovieList, index} = this.state
+    const randomObject = randomMovieList[index]
+    console.log(randomObject)
+    const {title, overview} = randomObject
     return (
       <div className="random-poster-container">
-        <h1 className="title-heading">{title}</h1>
-        <p className="overview-heading">{overview}</p>
+        <h1>{title}</h1>
+        <p>{overview}</p>
         <button className="play-btn" type="button">
           Play
         </button>
@@ -116,30 +110,8 @@ class Home extends Component {
   }
 
   render() {
-    const {randomMovieList} = this.state
-    const {posterPath} = randomMovieList
-    return (
-      <>
-        <div
-          className="home-top-container"
-          style={{
-            backgroundImage: `url(${posterPath})`,
-            backgroundSize: 'cover',
-            width: '100%',
-          }}
-        >
-          <Header />
-          {this.renderViews()}
-        </div>
-        <div className="home-bottom-bg-container">
-          <h1 className="trending-now-heading">Trending Now</h1>
-          <TrendingMovies />
-          <h1 className="orignal-heading">Orignals</h1>
-          <OrignalsMovies />
-        </div>
-      </>
-    )
+    return <>{this.renderViews()}</>
   }
 }
 
-export default Home
+export default HomeRandomBgPoster
