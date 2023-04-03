@@ -32,6 +32,9 @@
 .random-poster-container {
   margin-left: 90px;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .title-heading {
@@ -39,15 +42,18 @@
   font-size: 60px;
   font-weight: 400;
   color: #ffffff;
+  margin-bottom: 25px;
 }
 
-.overview-heading {
+.overview-para {
   font-family: 'Roboto';
   font-size: 20px;
   font-weight: 400;
   color: #ffffff;
   height: 48px;
-  width: 443px;
+  width: 650px;
+  margin-bottom: 90px;
+  margin-top: 0;
 }
 
 .play-btn {

@@ -35,7 +35,7 @@ class Home extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    const randomIndex = Math.ceil(Math.random() * 10)
+    const randomIndex = Math.floor(Math.random() * 10)
     console.log(randomIndex)
     if (response.ok === true) {
       const OrignalMovieData = data.results.map(each => ({
@@ -65,13 +65,13 @@ class Home extends Component {
 
   renderSuccessView = () => {
     const {randomMovieList} = this.state
-    //  this.setState({bgPoster: randomObject.posterPath})
     console.log(randomMovieList)
     const {title, overview} = randomMovieList
     return (
       <div className="random-poster-container">
         <h1 className="title-heading">{title}</h1>
-        <p className="overview-heading">{overview}</p>
+        <p className="overview-para">{overview}</p>
+        <br />
         <button className="play-btn" type="button">
           Play
         </button>

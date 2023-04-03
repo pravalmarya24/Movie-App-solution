@@ -15,7 +15,10 @@ class LoginPage extends Component {
   }
 
   onLoginSuccess = token => {
-    Cookies.set('jwt_Token', token, {expires: 30})
+    const {username, password} = this.state
+    Cookies.set('jwt_token', token, {expires: 30})
+    localStorage.setItem('username', JSON.stringify(username))
+    localStorage.setItem('password', JSON.stringify(password))
     const {history} = this.props
     history.replace('/')
   }
@@ -81,10 +84,10 @@ class LoginPage extends Component {
   }
 
   render() {
-    // const jwtToken = Cookies.get('jwt_token')
-    // if (jwtToken !== undefined) {
-    //   return <Redirect to="/" />
-    // }
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
 
     return (
       <div className="login-page-bg-container">

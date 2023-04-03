@@ -1,0 +1,134 @@
+.account-bg-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.account-container {
+  width: 960px;
+  margin-top: 45px;
+}
+
+.account-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 47px;
+  color: #131313;
+}
+
+.horizontal-line-1 {
+  color: #cbd5e1;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.membership-container {
+  display: flex;
+}
+
+.membership-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+.username-container {
+  margin-left: 13px;
+}
+
+.username-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: #1e293b;
+  padding-bottom: 9px;
+}
+
+.password-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+.horizontal-line-2 {
+  color: #cbd5e1;
+  border-style: normal;
+  border-width: 1px;
+}
+
+.horizontal-line-3 {
+  color: #cbd5e1;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.plans-details-container {
+  display: flex;
+}
+
+.plans-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+.premium-para {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: #1e293b;
+  padding-bottom: 9px;
+}
+
+.premium-container {
+  display: flex;
+  margin-left: 16px;
+}
+
+.ultra-hd-btn {
+  width: 66px;
+  height: 23px;
+  border-width: 1px;
+  background-color: #ffffff;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  color: #1e293b;
+  cursor: pointer;
+  outline: none;
+  margin-top: 12px;
+  margin-left: 8px;
+}
+
+.logout-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.logout-btn {
+  width: 90px;
+  height: 35px;
+  border-width: 0px;
+  border-radius: 4px;
+  background-color: #e50914;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  margin-top: 65px;
+}

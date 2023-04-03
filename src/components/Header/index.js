@@ -1,5 +1,6 @@
 import './index.css'
 import {HiOutlineSearch} from 'react-icons/hi'
+import {Link} from 'react-router-dom'
 
 const Header = () => (
   <nav className="movie-navbar-bg-container">
@@ -10,21 +11,27 @@ const Header = () => (
         className="movie-logo-img"
       />
       <ul className="header-unordered-list-hp">
-        <li className="list-text">Home</li>
-        <li className="list-text">Popular</li>
+        <Link to="/">
+          <li className="list-text">Home</li>
+        </Link>
+        <Link to="/popular">
+          <li className="list-text">Popular</li>
+        </Link>
       </ul>
     </div>
     <ul className="header-unordered-list-sp">
       <li className="list-icon-profile">
         <HiOutlineSearch className="search-icon" />
       </li>
-      <li className="list-icon-profile">
-        <img
-          src="https://res.cloudinary.com/dl88cshny/image/upload/v1679389716/Mask_Group_t39tdj.png"
-          alt="profile"
-          className="profile-img"
-        />
-      </li>
+      <Link to="/account">
+        <li className="list-icon-profile">
+          <img
+            src="https://res.cloudinary.com/dl88cshny/image/upload/v1679389716/Mask_Group_t39tdj.png"
+            alt="profile"
+            className="profile-img"
+          />
+        </li>
+      </Link>
     </ul>
   </nav>
 )
