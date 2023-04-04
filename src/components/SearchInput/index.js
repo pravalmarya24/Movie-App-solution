@@ -5,14 +5,15 @@ import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 class SearchInput extends Component {
-  state = {searchInputList: []}
+  state = {searchInputList: [], searchInput: ''}
 
   componentDidMount = () => {
     this.getSearchMovie()
   }
 
   getSearchMovie = async () => {
-    const url = 'https://apis.ccbp.in/movies-app/movies-search'
+    const {searchInput} = this.state
+    const url = `https://apis.ccbp.in/movies-app/movies-search?search=${searchInput}`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -34,6 +35,30 @@ class SearchInput extends Component {
       this.setState({searchInputList: searchMovieData})
     }
   }
+
+  renderSuccessView = () => {
+    const {searchInputList, searchInput} = this.state
+    // const filteredSearchResult = searchInputList.filter(each =>
+    //   each.title.toLowerCase().includes(searchInput.toLowerCase()),
+    // )
+    return (
+      <ul className="search-input-unlist">
+        {searchInputList.map(each => (
+          <li className="search-movie-list" key={each.id}>
+            <img
+              src={each.backdropPath}
+              alt={each.title}
+              className="search-movie-logo"
+            />
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  onSearchResult = event => this.setState({searchInput: event.target.value})
+
+  onSearchInput = () => this.getSearchMovie()
 
   render() {
     return (
@@ -60,8 +85,14 @@ class SearchInput extends Component {
                 type="search"
                 className="input-element"
                 placeholder="Search"
+                onChange={this.onSearchResult}
               />
-              <button type="button" className="search-btn">
+              <button
+                type="button"
+                className="search-btn"
+                testId="searchButton"
+                onClick={this.onSearchInput}
+              >
                 <HiOutlineSearch className="search-icon-input-result" />
               </button>
             </div>
@@ -76,6 +107,7 @@ class SearchInput extends Component {
             </Link>
           </div>
         </nav>
+        {this.renderSuccessView()}
       </div>
     )
   }

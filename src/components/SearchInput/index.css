@@ -1,7 +1,7 @@
 .search-bg-container {
   background-color: #131313;
   background-size: cover;
-  height: 100vh;
+  padding-bottom: 30px;
 }
 
 .search-input-container {
@@ -42,4 +42,24 @@
   height: 15px;
   width: 15px;
   color: #ffffff;
+}
+
+.search-input-unlist {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-movie-list {
+  margin: 10px;
+}
+
+.search-movie-logo {
+  height: 170px;
+  width: 255px;
+  border-radius: 10px;
 }
