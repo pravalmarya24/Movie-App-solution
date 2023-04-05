@@ -90,3 +90,21 @@
   font-weight: 300;
   color: #ffffff;
 }
+
+.similar-movie-unlist {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.similar-movie-list {
+  margin: 10px;
+}
+
+.similar-movie-logo {
+  height: 170px;
+  width: 255px;
+  border-radius: 10px;
+}

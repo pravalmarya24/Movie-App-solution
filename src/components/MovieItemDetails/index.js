@@ -97,7 +97,12 @@ class MovieItemDetails extends Component {
   }
 
   render() {
-    const {movieDetailsList, genresList, spokenLanguagesList} = this.state
+    const {
+      movieDetailsList,
+      genresList,
+      spokenLanguagesList,
+      similarMoviesList,
+    } = this.state
     const {
       backdropPath,
       voteAverage,
@@ -154,6 +159,17 @@ class MovieItemDetails extends Component {
             <p className="list-para">{releaseDate}</p>
           </div>
         </div>
+        <ul className="similar-movie-unlist">
+          {similarMoviesList.map(each => (
+            <li className="similar-movie-list" key={each.id}>
+              <img
+                src={each.backdropPath}
+                alt={each.title}
+                className="similar-movie-logo"
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }
