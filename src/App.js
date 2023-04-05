@@ -6,6 +6,7 @@ import PopularMovies from './components/PopularMovies'
 import ProtectedRoute from './components/ProtectedRoute'
 import Account from './components/Account'
 import SearchInput from './components/SearchInput'
+import MovieItemDetails from './components/MovieItemDetails'
 
 const App = () => (
   <>
@@ -15,6 +16,7 @@ const App = () => (
       <ProtectedRoute exact path="/popular" component={PopularMovies} />
       <ProtectedRoute exact path="/account" component={Account} />
       <ProtectedRoute exact path="/search" component={SearchInput} />
+      <ProtectedRoute exact path="/movies/:id" component={MovieItemDetails} />
     </Switch>
   </>
 )

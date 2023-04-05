@@ -3,17 +3,30 @@ import './index.css'
 import {HiOutlineSearch} from 'react-icons/hi'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
+
+const apiStatusObject = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  progress: 'PROGRESS',
+  failure: 'FAILURE',
+}
 
 class SearchInput extends Component {
-  state = {searchInputList: [], searchInput: ''}
+  state = {
+    searchInputList: [],
+    searchInputResult: '',
+    apiStatus: apiStatusObject.initial,
+  }
 
   componentDidMount = () => {
     this.getSearchMovie()
   }
 
   getSearchMovie = async () => {
-    const {searchInput} = this.state
-    const url = `https://apis.ccbp.in/movies-app/movies-search?search=${searchInput}`
+    this.setState({apiStatus: apiStatusObject.progress})
+    const {searchInputResult} = this.state
+    const url = `https://apis.ccbp.in/movies-app/movies-search?search=${searchInputResult}`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -23,7 +36,7 @@ class SearchInput extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
+
     if (response.ok === true) {
       const searchMovieData = data.results.map(each => ({
         id: each.id,
@@ -32,33 +45,102 @@ class SearchInput extends Component {
         title: each.title,
       }))
 
-      this.setState({searchInputList: searchMovieData})
+      this.setState({
+        searchInputList: searchMovieData,
+        apiStatus: apiStatusObject.success,
+      })
+    } else {
+      this.set({apiStatus: apiStatusObject.failure})
     }
   }
 
-  renderSuccessView = () => {
-    const {searchInputList, searchInput} = this.state
-    // const filteredSearchResult = searchInputList.filter(each =>
-    //   each.title.toLowerCase().includes(searchInput.toLowerCase()),
-    // )
+  renderNoSearchResult = () => {
+    const {searchInputResult} = this.state
     return (
-      <ul className="search-input-unlist">
-        {searchInputList.map(each => (
-          <li className="search-movie-list" key={each.id}>
-            <img
-              src={each.backdropPath}
-              alt={each.title}
-              className="search-movie-logo"
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="no-search-result-container">
+        <img
+          src="https://res.cloudinary.com/dl88cshny/image/upload/v1680676406/Group_fp9803.png"
+          alt="no movies"
+          className="no-search-found"
+        />
+        <p className="no-search-found-para">
+          Your search for {searchInputResult} did not find any matches.
+        </p>
+      </div>
     )
   }
 
-  onSearchResult = event => this.setState({searchInput: event.target.value})
+  renderSuccessView = () => {
+    const {searchInputList} = this.state
+    return (
+      <>
+        {searchInputList.length === 0 ? (
+          this.renderNoSearchResult()
+        ) : (
+          <ul className="search-input-unlist">
+            {searchInputList.map(each => (
+              <Link to={`/movies/${each.id}`}>
+                <li className="search-movie-list" key={each.id}>
+                  <img
+                    src={each.backdropPath}
+                    alt={each.title}
+                    className="search-movie-logo"
+                  />
+                </li>
+              </Link>
+            ))}
+          </ul>
+        )}
+      </>
+    )
+  }
+
+  renderLoaderView = () => (
+    <div className="loader-container" testid="loader">
+      <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
+    </div>
+  )
+
+  onRecallSearchMovieApi = () => this.getSearchMovie()
+
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        src="https://res.cloudinary.com/dl88cshny/image/upload/v1680421245/Icon_nkfkre.png"
+        alt="failure view"
+        className="failure-logo"
+      />
+      <p className="failure-message-para">
+        Something went wrong. Please try again
+      </p>
+      <button
+        className="try-again-btn"
+        type="button"
+        onClick={this.onRecallSearchMovieApi}
+      >
+        Try Again
+      </button>
+    </div>
+  )
+
+  onSearchResult = event =>
+    this.setState({searchInputResult: event.target.value})
 
   onSearchInput = () => this.getSearchMovie()
+
+  renderSearchViews = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusObject.success:
+        return this.renderSuccessView()
+      case apiStatusObject.progress:
+        return this.renderLoaderView()
+      case apiStatusObject.failure:
+        return this.renderFailureView()
+      default:
+        return null
+    }
+  }
 
   render() {
     return (
@@ -90,7 +172,7 @@ class SearchInput extends Component {
               <button
                 type="button"
                 className="search-btn"
-                testId="searchButton"
+                testid="searchButton"
                 onClick={this.onSearchInput}
               >
                 <HiOutlineSearch className="search-icon-input-result" />
@@ -107,7 +189,7 @@ class SearchInput extends Component {
             </Link>
           </div>
         </nav>
-        {this.renderSuccessView()}
+        {this.renderSearchViews()}
       </div>
     )
   }

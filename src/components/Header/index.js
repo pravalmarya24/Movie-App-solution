@@ -20,9 +20,11 @@ const Header = () => (
       </ul>
     </div>
     <ul className="header-unordered-list-sp">
-      <li className="list-icon-profile">
-        <HiOutlineSearch className="search-icon" />
-      </li>
+      <Link to="/search">
+        <li className="list-icon-profile">
+          <HiOutlineSearch className="search-icon" />
+        </li>
+      </Link>
       <Link to="/account">
         <li className="list-icon-profile">
           <img

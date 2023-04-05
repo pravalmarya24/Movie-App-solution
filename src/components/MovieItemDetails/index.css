@@ -1,0 +1,92 @@
+.movie-item-details-bg-container {
+  background-color: #131313;
+  background-size: cover;
+  padding-bottom: 25px;
+}
+
+.movie-detail-top-section {
+  min-height: 450px;
+  padding: 25px;
+}
+
+.movie-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.movie-title-heading {
+  font-family: 'Roboto';
+  font-size: 35px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0px;
+}
+
+.time-genre-date-container {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+}
+
+.runtime-para {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.adult {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 400;
+  color: #ffffff;
+  border-width: 1px;
+  border-color: #ffffff;
+  border-style: solid;
+  width: 45px;
+  text-align: center;
+  padding-top: 1px;
+}
+
+.year-para {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.review-para {
+  width: 636px;
+  font-family: 'Roboto';
+  font-size: 17px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.genre-unlist {
+  list-style-type: none;
+}
+
+.genre-list {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.heading {
+  font-family: 'Roboto';
+  font-size: 19px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.list-para {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 300;
+  color: #ffffff;
+}

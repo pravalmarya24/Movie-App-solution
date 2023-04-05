@@ -1,6 +1,7 @@
 .search-bg-container {
   background-color: #131313;
   background-size: cover;
+  height: auto;
   padding-bottom: 30px;
 }
 
@@ -62,4 +63,20 @@
   height: 170px;
   width: 255px;
   border-radius: 10px;
+}
+
+.no-search-result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+.no-search-found-para {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-top: 30px;
 }
