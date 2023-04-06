@@ -2,6 +2,7 @@ import {Component} from 'react'
 import './index.css'
 import Cookies from 'js-cookie'
 import Header from '../Header'
+import FooterSection from '../FooterSection'
 
 class Account extends Component {
   onLogout = () => {
@@ -22,10 +23,10 @@ class Account extends Component {
         <Header />
         <div className="account-bg-container">
           <div className="account-container">
-            <h1 className="account-heading">Accounts</h1>
+            <h1 className="account-heading">Account</h1>
             <hr className="horizontal-line-1" />
             <div className="membership-container">
-              <p className="membership-para">Member Ship</p>
+              <p className="membership-para">Member ship</p>
               <div className="username-container">
                 <p className="username-para">{user}@gmail.com</p>
                 <p className="password-para">Password:{stars}</p>
@@ -33,12 +34,10 @@ class Account extends Component {
             </div>
             <hr className="horizontal-line-2" />
             <div className="plans-details-container">
-              <p className="plans-para">Plans details</p>
+              <p className="plans-para">Plan details</p>
               <div className="premium-container">
                 <p className="premium-para">Premium</p>
-                <button type="button" className="ultra-hd-btn">
-                  Ultra HD
-                </button>
+                <p className="ultra-hd-btn">Ultra HD</p>
               </div>
             </div>
             <hr className="horizontal-line-3" />
@@ -53,6 +52,7 @@ class Account extends Component {
             </div>
           </div>
         </div>
+        <FooterSection />
       </>
     )
   }

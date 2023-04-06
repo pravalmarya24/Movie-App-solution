@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Account from './components/Account'
 import SearchInput from './components/SearchInput'
 import MovieItemDetails from './components/MovieItemDetails'
+import NotFound from './components/NotFound'
 
 const App = () => (
   <>
@@ -17,6 +18,7 @@ const App = () => (
       <ProtectedRoute exact path="/account" component={Account} />
       <ProtectedRoute exact path="/search" component={SearchInput} />
       <ProtectedRoute exact path="/movies/:id" component={MovieItemDetails} />
+      <NotFound />
     </Switch>
   </>
 )

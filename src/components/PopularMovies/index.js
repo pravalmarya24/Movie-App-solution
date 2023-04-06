@@ -2,7 +2,9 @@ import {Component} from 'react'
 import './index.css'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
 import Header from '../Header'
+import FooterSection from '../FooterSection'
 
 const apiStatusObject = {
   initial: 'INITIAL',
@@ -30,7 +32,6 @@ class PopularMovies extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
     if (response.ok === true) {
       const popularMovieData = data.results.map(each => ({
         id: each.id,
@@ -42,7 +43,6 @@ class PopularMovies extends Component {
         popularMovieList: popularMovieData,
         apiStatus: apiStatusObject.success,
       })
-      console.log(popularMovieData)
     } else {
       this.setState({apiStatus: apiStatusObject.failure})
     }
@@ -59,13 +59,15 @@ class PopularMovies extends Component {
     return (
       <ul className="popular-unList">
         {popularMovieList.map(each => (
-          <li className="popular-list" key={each.id}>
-            <img
-              src={each.backdropPath}
-              alt={each.title}
-              className="popular-movie-logo"
-            />
-          </li>
+          <Link to={`/movies/${each.id}`} key={each.id}>
+            <li className="popular-list" key={each.id}>
+              <img
+                src={each.posterPath}
+                alt={each.title}
+                className="popular-movie-logo"
+              />
+            </li>
+          </Link>
         ))}
       </ul>
     )
@@ -112,6 +114,7 @@ class PopularMovies extends Component {
       <div className="popular-bg-container">
         <Header />
         {this.renderPopularMovieViews()}
+        {<FooterSection />}
       </div>
     )
   }

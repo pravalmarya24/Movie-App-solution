@@ -79,7 +79,7 @@ class SearchInput extends Component {
         ) : (
           <ul className="search-input-unlist">
             {searchInputList.map(each => (
-              <Link to={`/movies/${each.id}`}>
+              <Link to={`/movies/${each.id}`} key={each.id}>
                 <li className="search-movie-list" key={each.id}>
                   <img
                     src={each.backdropPath}

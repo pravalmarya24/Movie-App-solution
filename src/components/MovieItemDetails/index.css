@@ -7,6 +7,9 @@
 .movie-detail-top-section {
   min-height: 450px;
   padding: 25px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 130px;
 }
 
 .movie-details-container {
@@ -95,8 +98,7 @@
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  align-items: center;
-  justify-content: center;
+  margin-left: 16px;
 }
 
 .similar-movie-list {
@@ -107,4 +109,12 @@
   height: 170px;
   width: 255px;
   border-radius: 10px;
+}
+
+.more-like-this-para {
+  font-family: 'Roboto';
+  font-size: 19px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-left: 68px;
 }

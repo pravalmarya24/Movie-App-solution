@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Header from '../Header'
 import TrendingMovies from '../TrendingMovies'
 import OrignalsMovies from '../OrignalMovies'
+import FooterSection from '../FooterSection'
 
 const apiStatusObject = {
   initial: 'INITIAL',
@@ -137,6 +138,7 @@ class Home extends Component {
           <h1 className="orignal-heading">Orignals</h1>
           <OrignalsMovies />
         </div>
+        <FooterSection />
       </>
     )
   }

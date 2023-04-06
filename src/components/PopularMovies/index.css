@@ -1,7 +1,6 @@
 .popular-bg-container {
   background-color: #131313;
   background-size: cover;
-  padding-bottom: 30px;
 }
 
 .popular-unList {
@@ -19,7 +18,8 @@
 
 .popular-movie-logo {
   height: 170px;
-  width: 255px;
+  max-width: 255px;
+  width: 100%;
   border-radius: 10px;
 }
 

@@ -1,7 +1,16 @@
 import {Component} from 'react'
 import './index.css'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
 import Header from '../Header'
+import FooterSection from '../FooterSection'
+
+const apiStatusObject = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  progress: 'PROGRESS',
+  failure: 'FAILURE',
+}
 
 class MovieItemDetails extends Component {
   state = {
@@ -9,6 +18,7 @@ class MovieItemDetails extends Component {
     genresList: [],
     similarMoviesList: [],
     spokenLanguagesList: [],
+    apiStatus: apiStatusObject.initial,
   }
 
   componentDidMount = () => {
@@ -16,6 +26,7 @@ class MovieItemDetails extends Component {
   }
 
   getMovieItemDetails = async () => {
+    this.setState({apiStatus: apiStatusObject.progress})
     const {match} = this.props
     const {params} = match
     const {id} = params
@@ -69,7 +80,10 @@ class MovieItemDetails extends Component {
         genresList: genresData,
         spokenLanguagesList: spokenLanguageData,
         similarMoviesList: similarMoviesData,
+        apiStatus: apiStatusObject.success,
       })
+    } else {
+      this.setState({apiStatus: apiStatusObject.failure})
     }
   }
 
@@ -96,7 +110,7 @@ class MovieItemDetails extends Component {
     )
   }
 
-  render() {
+  renderSuccessView = () => {
     const {
       movieDetailsList,
       genresList,
@@ -113,64 +127,118 @@ class MovieItemDetails extends Component {
     // const date = format(new Date(releaseDate), MMMM, dd, yyyy)
     // console.log(date)
     return (
-      <div className="movie-item-details-bg-container">
+      <>
         <Header />
-        <div
-          className="movie-detail-top-section"
-          style={{
-            backgroundImage: `url(${backdropPath})`,
-            backgroundSize: 'cover',
-            height: '100%',
-          }}
-        >
-          {this.renderMovieReviewAndPoster()}
+        <div className="movie-item-details-bg-container">
+          <div
+            className="movie-detail-top-section"
+            style={{
+              backgroundImage: `url(${backdropPath})`,
+              backgroundSize: 'cover',
+              height: '100%',
+            }}
+          >
+            {this.renderMovieReviewAndPoster()}
+          </div>
+          <div className="movie-details-container">
+            <div className="unordered-genre-list-container">
+              <ul className="genre-unlist">
+                <p className="heading">Genres</p>
+                {genresList.map(each => (
+                  <li className="genre-list" key={each.id}>
+                    <p className="list-para">{each.name}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="unordered-language-list-container">
+              <ul className="genre-unlist">
+                <p className="heading">Audio Available</p>
+                {spokenLanguagesList.map(each => (
+                  <li className="genre-list" key={each.id}>
+                    <p className="list-para">{each.englishName}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rating-container">
+              <p className="heading">Rating Count</p>
+              <p className="list-para">{voteCount}</p>
+              <p className="heading">Rating Average</p>
+              <p className="list-para">{voteAverage}</p>
+            </div>
+            <div className="budget-container">
+              <p className="heading">Budget</p>
+              <p className="list-para">{budget}</p>
+              <p className="heading">Release Date</p>
+              <p className="list-para">{releaseDate}</p>
+            </div>
+          </div>
+          <p className="more-like-this-para">More like this</p>
+          <ul className="similar-movie-unlist">
+            {similarMoviesList.map(each => (
+              <li className="similar-movie-list" key={each.id}>
+                <img
+                  src={each.backdropPath}
+                  alt={each.title}
+                  className="similar-movie-logo"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="movie-details-container">
-          <div className="unordered-genre-list-container">
-            <ul className="genre-unlist">
-              <p className="heading">Genres</p>
-              {genresList.map(each => (
-                <li className="genre-list" key={each.id}>
-                  <p className="list-para">{each.name}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="unordered-language-list-container">
-            <ul className="genre-unlist">
-              <p className="heading">Audio Available</p>
-              {spokenLanguagesList.map(each => (
-                <li className="genre-list" key={each.id}>
-                  <p className="list-para">{each.englishName}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rating-container">
-            <p className="heading">Rating Count</p>
-            <p className="list-para">{voteCount}</p>
-            <p className="heading">Rating Average</p>
-            <p className="list-para">{voteAverage}</p>
-          </div>
-          <div className="budget-container">
-            <p className="heading">Budget</p>
-            <p className="list-para">{budget}</p>
-            <p className="heading">Release Date</p>
-            <p className="list-para">{releaseDate}</p>
-          </div>
-        </div>
-        <ul className="similar-movie-unlist">
-          {similarMoviesList.map(each => (
-            <li className="similar-movie-list" key={each.id}>
-              <img
-                src={each.backdropPath}
-                alt={each.title}
-                className="similar-movie-logo"
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      </>
+    )
+  }
+
+  renderLoaderView = () => (
+    <div className="loader-container" testid="loader">
+      <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
+    </div>
+  )
+
+  onRecallMovieItemDetailsApi = () => this.getMovieItemDetails()
+
+  renderFailureView = () => (
+    <div className="failure-view-container">
+      <img
+        src="https://res.cloudinary.com/dl88cshny/image/upload/v1680421245/Icon_nkfkre.png"
+        alt="failure view"
+        className="failure-logo"
+      />
+      <p className="failure-message-para">
+        Something went wrong. Please try again
+      </p>
+      <button
+        className="try-again-btn"
+        type="button"
+        onClick={this.onRecallMovieItemDetailsApi}
+      >
+        Try Again
+      </button>
+    </div>
+  )
+
+  renderMovieDetailsViews = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusObject.success:
+        return this.renderSuccessView()
+      case apiStatusObject.progress:
+        return this.renderLoaderView()
+      case apiStatusObject.failure:
+        return this.renderFailureView()
+      default:
+        return null
+    }
+  }
+
+  render() {
+    return (
+      <>
+        {this.renderMovieDetailsViews()}
+        <FooterSection />
+      </>
     )
   }
 }
