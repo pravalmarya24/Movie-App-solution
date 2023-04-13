@@ -1,13 +1,13 @@
 .login-page-bg-container {
-  width: 1440px;
-  height: 1024px;
+  width: 640px;
+  height: 100vh;
   left: 0px;
   top: 0px;
-  background-color: #333333;
+  background-color: #0c0b10;
   background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-items: center;
 }
 
 @media screen and (min-width: 567px) {
@@ -18,18 +18,24 @@
         rgba(0, 0, 0, 0) 100%
       ),
       url('https://res.cloudinary.com/dl88cshny/image/upload/v1679130720/netfilx_1_zaylvm.png');
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .login-movie-logo-container {
-  margin-left: 167px;
+  margin-left: 40px;
   padding-top: 29px;
   align-self: flex-start;
 }
 
 .movie-logo-login-img {
-  height: 40px;
-  width: 110px;
+  height: 30px;
+  width: 90px;
 }
 
 @media screen and (min-width: 567px) {
@@ -51,8 +57,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin-top: 210px;
+  margin-top: 110px;
+  margin-left: 25px;
 }
 
 @media screen and (min-width: 567px) {
@@ -61,6 +67,11 @@
     height: 440px;
     left: 492px;
     top: 252px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
   }
 }
 
@@ -71,12 +82,12 @@
   font-size: 22px;
   line-height: 40px;
   color: #ffffff;
-  text-align: center;
 }
 
 @media screen and (min-width: 567px) {
   .login-heading {
     font-size: 32px;
+    text-align: center;
   }
 }
 
@@ -88,12 +99,12 @@
   color: #ffffff;
   line-height: 16px;
   align-self: flex-start;
-  margin-left: 30px;
 }
 
 @media screen and (min-width: 567px) {
   .username-label {
     font-size: 12px;
+    margin-left: 30px;
   }
 }
 
@@ -129,12 +140,12 @@
   color: #ffffff;
   line-height: 16px;
   align-self: flex-start;
-  margin-left: 30px;
 }
 
 @media screen and (min-width: 567px) {
   .password-label {
     font-size: 12px;
+    margin-left: 30px;
   }
 }
 
@@ -194,5 +205,11 @@
   margin: 0;
   margin-top: 2px;
   align-self: flex-start;
-  margin-left: 34px;
+  margin-left: 7px;
+}
+
+@media screen and (min-width: 567px) {
+  .error-msg {
+    margin-left: 34px;
+  }
 }
