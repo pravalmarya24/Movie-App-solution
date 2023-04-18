@@ -10,6 +10,12 @@
   opacity: 0.8;
 }
 
+@media screen and (max-width: 567px) {
+  .movie-navbar-bg-container {
+    display: none;
+  }
+}
+
 .movie-logo-container {
   display: flex;
   align-items: center;
@@ -56,4 +62,44 @@
   background-color: #ffffff;
   border-radius: 34px;
   margin-left: 12px;
+}
+
+.mobile-navbar-view {
+  display: flex;
+  align-items: center;
+  height: 90px;
+  justify-content: space-between;
+  background-color: #131313;
+  opacity: 0.8;
+  width: auto;
+  padding: 15px;
+}
+
+@media screen and (min-width: 567px) {
+  .mobile-navbar-view {
+    display: none;
+  }
+}
+
+.mobile-movie-logo-img {
+  height: 25px;
+  width: 68px;
+}
+
+.mobile-unlist {
+  display: flex;
+  list-style-type: none;
+}
+
+.mobile-search-icon {
+  height: 20px;
+  width: 20px;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.hamburger-icon-logo {
+  height: 20px;
+  width: 20px;
+  color: #ffffff;
 }

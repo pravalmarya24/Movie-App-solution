@@ -2,6 +2,12 @@
   min-height: 800px;
 }
 
+@media screen and (min-width: 567px) {
+  .home-top-container {
+    min-height: 700px;
+  }
+}
+
 .home-bottom-bg-container {
   background-color: #181818;
   padding-left: 60px;
@@ -39,33 +45,53 @@
 
 .title-heading {
   font-family: 'Roboto';
-  font-size: 60px;
+  font-size: 20px;
   font-weight: 400;
   color: #ffffff;
   margin-bottom: 25px;
 }
+@media screen and (min-width: 567px) {
+  .title-heading {
+    font-size: 60px;
+  }
+}
 
 .overview-para {
   font-family: 'Roboto';
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400;
   color: #ffffff;
   height: 48px;
-  width: 650px;
+  width: auto;
   margin-bottom: 90px;
   margin-top: 0;
 }
 
+@media screen and (min-width: 567px) {
+  .overview-para {
+    width: auto;
+    font-size: 20px;
+  }
+}
+
 .play-btn {
-  width: 85px;
-  height: 32px;
+  width: 50px;
+  height: 20px;
   background-color: #ffffff;
   border-width: 0;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
   font-family: 'Roboto';
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: #171f46;
+}
+
+@media screen and (min-width: 567px) {
+  .play-btn {
+    width: 85px;
+    height: 32px;
+    font-size: 12px;
+  }
 }
